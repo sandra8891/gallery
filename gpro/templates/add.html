@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gallery upload</title>
+</head>
+<body>
+    <form action="{% url 'add_user' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="image">upload Image</label>
+        <input type="file" name="image" required>
+        <button type="submit">submit</button>
+    </form>
+    <h2>Gallery</h2>
+    <div>
+        {% for i in gallery_images %}
+        {% if i.feedimage %}
+            <div>
+                <img src="{{i.feedimage.url}}" alt="Gallery Image" width="300">
+            </div>
+        {% else %}
+            <p>No image </p>
+        {% endif %}
+    {% empty %}
+    <p>No image</p>
+    {% endfor %}
+    </div>
+    
+</body>
+</html>
