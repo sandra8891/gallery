@@ -15,17 +15,19 @@
     <h2>Gallery</h2>
     <div>
         {% for i in gallery_images %}
-        {% if i.feedimage %}
+            {% if i.feedimage %}
             <div>
                 <img src="{{i.feedimage.url}}" alt="Gallery Image" width="300">
+                <a href="{% url%}"></a>
             </div>
-        {% else %}
-            <p>No image </p>
-        {% endif %}
-    {% empty %}
-    <p>No image</p>
-    {% endfor %}
+            {% else %}
+                <p>No image</p>
+            {% endif %}
+        {% empty %}
+            <p>No image</p>
+        {% endfor %}
     </div>
+
     
 </body>
 </html>

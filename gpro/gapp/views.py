@@ -14,7 +14,7 @@ def login_user(request):
         password=request.POST.get('password')
         user=authenticate(username=username,password=password)
         if user is not None:
-            login_user(request,user)
+            login(request,user)
             return redirect(main)
         messages.error(request,"wrong password or username")
         return redirect(login_user)
@@ -35,6 +35,9 @@ def add_user(request):
     if request.method=='POST' and 'image'in request.FILES:
         myimage=request.FILES['image']
         obj=Gallery(feedimage=myimage)
+        obj.save()
         return redirect('add_user')
     gallery_images=Gallery.objects.all()
     return render(request,"add.html",{"gallery_images":gallery_images})
+
+
