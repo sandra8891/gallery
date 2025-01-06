@@ -8,25 +8,12 @@
 <body>
     <form action="{% url 'add_user' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <h2>GALLERY UPLOAD</h2>
         <label for="image">upload Image</label>
         <input type="file" name="image" required>
         <button type="submit">submit</button>
     </form>
-    <h2>Gallery</h2>
-    <div>
-        {% for i in gallery_images %}
-            {% if i.feedimage %}
-            <div>
-                <img src="{{i.feedimage.url}}" alt="Gallery Image" width="300">
-                <a href="{% url%}"></a>
-            </div>
-            {% else %}
-                <p>No image</p>
-            {% endif %}
-        {% empty %}
-            <p>No image</p>
-        {% endfor %}
-    </div>
+    
 
     
 </body>

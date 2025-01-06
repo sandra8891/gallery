@@ -9,5 +9,20 @@
     <h1>WELCOME TO GALLERY</h1>
     <a href="{% url 'add_user' %}">
         <button>Go to Gallery Upload</button>
+        <div>
+            {% for i in gallery_images %}
+                {% if i.feedimage %}
+                <div>
+                    <img src="{{i.feedimage.url}}" alt="Gallery Image" width="300">
+                    <a href="{% url 'deletion' i.id %}"><button>Delete</button></a>
+                  
+                </div>
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+            {% empty %}
+                <p>No image</p>
+            {% endfor %}
+        </div>
 </body>
 </html>

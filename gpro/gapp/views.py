@@ -7,7 +7,8 @@ from.models import *
 # Create your views here.
 
 def main(request):
-    return render(request,'index.html')
+    gallery_images=Gallery.objects.filter(user=request.user)
+    return render(request,'index.html',{"gallery_images":gallery_images})
 def login_user(request):
     if request.POST:
         username=request.POST.get('username')
@@ -34,10 +35,12 @@ def signup(request):
 def add_user(request):
     if request.method=='POST' and 'image'in request.FILES:
         myimage=request.FILES['image']
-        obj=Gallery(feedimage=myimage)
+        obj=Gallery(feedimage=myimage,user=request.user)
         obj.save()
         return redirect('add_user')
-    gallery_images=Gallery.objects.all()
-    return render(request,"add.html",{"gallery_images":gallery_images})
-
+    return render(request,"add.html")
+def delete_g(request,id):
+    feeds=Gallery.objects.filter(pk=id)
+    feeds.delete()  
+    return redirect(main)
 

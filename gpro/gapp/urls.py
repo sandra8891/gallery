@@ -5,10 +5,11 @@ from django.conf.urls.static import static
 from.import views
 
 urlpatterns = [
-    path('',views.signup,name='signup'),
-    path('login',views.login_user,name='login'),
+    path('signup',views.signup,name='signup'),
+    path('',views.login_user,name='login'),
     path('index',views.main,name='main'),
-    path('add',views.add_user,name='add_user')
+    path('add',views.add_user,name='add_user'),
+    path('deletion/<int:id>',views.delete_g,name='deletion')
     
 ]
 if settings.DEBUG:
