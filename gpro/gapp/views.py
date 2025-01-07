@@ -9,6 +9,7 @@ from.models import *
 def main(request):
     gallery_images=Gallery.objects.filter(user=request.user)
     return render(request,'index.html',{"gallery_images":gallery_images})
+
 def login_user(request):
     if request.POST:
         username=request.POST.get('username')
@@ -16,10 +17,12 @@ def login_user(request):
         user=authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
+            request.session["username"]=username
             return redirect(main)
         messages.error(request,"wrong password or username")
         return redirect(login_user)
     return render(request,'login.html')
+        
 def signup(request):
     if request.POST:
         username=request.POST.get('username')
@@ -32,6 +35,7 @@ def signup(request):
         messages.error(request,"password doesnot match")
         return redirect(signup)
     return render(request,'signup.html')
+
 def add_user(request):
     if request.method=='POST' and 'image'in request.FILES:
         myimage=request.FILES['image']
@@ -39,6 +43,7 @@ def add_user(request):
         obj.save()
         return redirect('add_user')
     return render(request,"add.html")
+
 def delete_g(request,id):
     feeds=Gallery.objects.filter(pk=id)
     feeds.delete()  
